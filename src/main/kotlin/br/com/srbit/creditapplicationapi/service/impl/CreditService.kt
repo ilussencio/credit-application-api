@@ -1,5 +1,6 @@
 package br.com.srbit.creditapplicationapi.service.impl
 
+import br.com.srbit.creditapplicationapi.exception.BusinessException
 import br.com.srbit.creditapplicationapi.model.Credit
 import br.com.srbit.creditapplicationapi.repositories.CreditRepository
 import br.com.srbit.creditapplicationapi.service.ICreditService
@@ -22,8 +23,8 @@ class CreditService(
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         val credit: Credit = this.creditRepository.findByCreditCode(creditCode)
-            ?: throw RuntimeException("creditCode não encontrado")
-        return if(credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
+            ?: throw BusinessException("creditCode não encontrado")
+        return if(credit.customer?.id == customerId) credit else throw IllegalArgumentException("Contact admin")
 
     }
 
