@@ -31,6 +31,15 @@ class CustomerController(
         return ResponseEntity.ok().body("Customer ${savedCustomer.email}")
     }
 
+    @GetMapping
+    fun findAll(): ResponseEntity<List<CustomerView>>{
+        val list: List<CustomerView> = this.customerService.findAll()
+            .stream()
+            .map{ customer: Customer -> CustomerView(customer) }
+            .toList()
+
+        return ResponseEntity.ok().body(list)
+    }
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Long): ResponseEntity<CustomerView> {
         val customer : Customer = this.customerService.findById(id)

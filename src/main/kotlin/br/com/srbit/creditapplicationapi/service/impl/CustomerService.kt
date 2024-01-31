@@ -22,4 +22,6 @@ class CustomerService(
         val customer: Customer = this.findById(id)
         this.customerRepository.delete(customer)
     }
+
+    override fun findAll(): List<Customer> = this.customerRepository.findAll()
 }

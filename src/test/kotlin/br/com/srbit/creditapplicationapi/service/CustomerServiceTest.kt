@@ -110,4 +110,6 @@ class CustomerServiceTest {
         id = id
     )
 
+    companion object
+
 }
