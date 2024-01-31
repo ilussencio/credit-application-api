@@ -1,0 +1,1 @@
+alter table Cliente add income decimal not null

@@ -1,5 +1,6 @@
 package br.com.srbit.creditapplicationapi.service.impl
 
+import br.com.srbit.creditapplicationapi.exception.BusinessException
 import br.com.srbit.creditapplicationapi.model.Credit
 import br.com.srbit.creditapplicationapi.repositories.CreditRepository
 import br.com.srbit.creditapplicationapi.service.ICreditService
@@ -18,12 +19,12 @@ class CreditService(
         return this.creditRepository.save(credit)
     }
 
-    override fun findAllByCustomer(customerId: Long): List<Credit> = this.creditRepository.findAllByCredits(customerId)
+    override fun findAllByCustomer(customerId: Long): List<Credit> = this.creditRepository.findAllByCustomerId(customerId)
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         val credit: Credit = this.creditRepository.findByCreditCode(creditCode)
-            ?: throw RuntimeException("creditCode não encontrado")
-        return if(credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
+            ?: throw BusinessException("creditCode não encontrado")
+        return if(credit.customer?.id == customerId) credit else throw IllegalArgumentException("Contact admin")
 
     }
 

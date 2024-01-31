@@ -1,6 +1,7 @@
 package br.com.srbit.creditapplicationapi.model
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 
 @Entity
 @Table(name = "Cliente")
@@ -12,7 +13,10 @@ data class Customer(
     var lastName: String = "",
 
     @Column(nullable = false, unique = true)
-    val cpf: String,
+    var cpf: String = "",
+
+    @Column(nullable = false)
+    var income: BigDecimal = BigDecimal.ZERO,
 
     @Column(nullable = false)
     var email: String = "",
@@ -29,8 +33,9 @@ data class Customer(
         cascade = arrayOf(CascadeType.REMOVE),
         mappedBy = "customer")
     var credits: List<Credit> = mutableListOf(),
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
 )
